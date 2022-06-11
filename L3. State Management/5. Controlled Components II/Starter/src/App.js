@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import AddItemForm from "./AddItemForm";
+import DeleteItem from "./DeleteItem";
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -10,11 +11,14 @@ const App = () => {
     setItems([...items, newItem]);
   };
 
-  const deleteLastItem = (event) => {
-    setItems(items.slice(0, -1));
-  };
+  const getLastItem = () => {
+      const [result] = items.slice(-1);
+      return result;
+  }
 
-  const noItemsFound = () => items.length === 0;
+  const deleteLastItem = () => {
+      setItems(items.slice(0, -1));
+  }
 
   return (
     <div className="App">
@@ -23,10 +27,8 @@ const App = () => {
         <h1 className="App-title">ReactND - Coding Practice</h1>
       </header>
       <h2>Shopping List</h2>
-        <AddItemForm onNewItem={addItem} />
-      <button onClick={deleteLastItem} disabled={noItemsFound()}>
-        Delete Last Item
-      </button>
+      <AddItemForm onNewItem={addItem} />
+      <DeleteItem item={getLastItem()} onDeleteItem={deleteLastItem} />
 
       <p className="items">Items</p>
       <ol className="item-list">
