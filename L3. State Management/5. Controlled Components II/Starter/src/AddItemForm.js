@@ -7,6 +7,7 @@ const AddItemForm = ({onNewItem=f=>f}) => {
     const submit = e => {
         e.preventDefault();
         onNewItem(_item.value);
+        setItem('');
         _item.value = '';
         _item.focus();
     }
