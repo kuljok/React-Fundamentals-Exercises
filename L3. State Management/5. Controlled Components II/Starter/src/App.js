@@ -3,6 +3,7 @@ import "./App.css";
 import { useState } from "react";
 import AddItemForm from "./AddItemForm";
 import DeleteItem from "./DeleteItem";
+import ItemsList from "./ItemsList";
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -29,13 +30,7 @@ const App = () => {
       <h2>Shopping List</h2>
       <AddItemForm onNewItem={addItem} />
       <DeleteItem item={getLastItem()} onDeleteItem={deleteLastItem} />
-
-      <p className="items">Items</p>
-      <ol className="item-list">
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ol>
+      <ItemsList items={items} />
     </div>
   );
 };
