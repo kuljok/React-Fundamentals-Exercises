@@ -16,7 +16,8 @@ const App = () => {
         lastName: lastName,
         playedGames: 0
       }
-    ]
+    ];
+    setUsers(newUsers);
   }
 
   return (
