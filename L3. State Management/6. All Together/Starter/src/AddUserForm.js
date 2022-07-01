@@ -1,35 +1,43 @@
+import {useState} from 'react'
+
 const AddUserForm = ({onNewUser=f=>f}) => {
 
   let _username, _firstName, _lastName;
+  const [userExists, setUserExists] = useState(false);
 
   const submit = e => {
     e.preventDefault();
-    onNewUser(_firstName.value, _lastName.value, _username.value);
-    _username.value = '';
-    _firstName.value = '';
-    _lastName.value = '';
-    _firstName.focus();
+    if (onNewUser(_firstName.value, _lastName.value, _username.value))
+    {
+      _username.value = '';
+      _firstName.value = '';
+      _lastName.value = '';
+      _firstName.focus();
+    } else {
+      setUserExists(true);
+      _username.focus();
+    }
   }
 
   return (
-    <form className="needs-validation" onSubmit={submit} novalidate>
+    <form className="needs-validation" onSubmit={submit} noValidate>
       <div className="row g-3">
         <div className="col-sm-6">
           <label htmlFor="firstName" className="form-label">First Name</label>
-          <input type="text" ref={input=>_firstName = input} className="form-control" id="firstName" placeholder required></input>
-          <div className="invalid-feedback">Valid first name is required</div>
+          <input type="text" ref={input=>_firstName = input} className="form-control" id="firstName" required></input>
         </div>
         <div className="col-sm-6">
           <label htmlFor="lastName" className="form-label">Last Name</label>
-          <input type="text" ref={input => _lastName = input} className="form-control" id="lastName" placeholder required></input>
-          <div className="invalid-feedback">Valid last name is required</div>
+          <input type="text" ref={input => _lastName = input} className="form-control" id="lastName" required></input>
         </div>
         <div className="col-12">
           <label htmlFor="username" className="form-label">Username</label>
           <div className="input-group has-validation">
             <span className="input-group-text">@</span>
-            <input type="text" ref={input => _username = input} className="form-control" id="username" placeholder="Useranme" required></input>
-            <div className="invalid-feedback">The username is required.</div>
+            <input type="text" ref={input => _username = input} 
+              className={`form-control ${userExists ? "is-invalid": ""}`} 
+              id="username" placeholder="Useranme" required onChange={(event) => setUserExists(false)}></input>
+            <div className="invalid-feedback">Username with such a name is already exist.</div>
           </div>
         </div>
       </div>

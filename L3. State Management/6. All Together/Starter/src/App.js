@@ -8,17 +8,23 @@ const App = () => {
   const [users, setUsers] = useState([])
 
   const addUser = (firstName, lastName, username) => {
-    const newUsers = [
-      ...users,
-      {
-        username: username,
-        firstName: firstName,
-        lastName: lastName,
-        playedGames: 0
-      }
-    ];
-    setUsers(newUsers);
-  }
+    const existUser = users.find(u => u.username.toLowerCase() == username.toLowerCase());
+    if (!existUser)
+    {
+      const newUsers = [
+        ...users,
+        {
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
+          playedGames: 0
+        }
+      ];
+      setUsers(newUsers);
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div className="d-flex flex-column alignt-items-stretch flex-shrink-0 bg-white">
