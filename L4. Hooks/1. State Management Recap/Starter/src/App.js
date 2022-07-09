@@ -3,23 +3,11 @@ import "./App.css";
 import {useState} from 'react';
 import Chat from './Chat.js'
 
-const users = [{ username: "Amy" }, { username: "John" }];
-
-/*const messages = [
-  { username: "Amy", text: "Hi, Jon!" },
-  { username: "Amy", text: "How are you?" },
-  { username: "John", text: "Hi, Amy! Good, you?" },
-];*/
+const users = [{ username: "Amy" }, { username: "John" }, {username: "Bob"}];
 
 const App = () => {
 
   const [messages, setMessages] = useState([]);
-
-
-  // If the user did not type anything, he/she should not be allowed to submit.
-  const isDisabled = () => {
-    return false;
-  };
 
   const sendMessage = (username, text) => 
   {
